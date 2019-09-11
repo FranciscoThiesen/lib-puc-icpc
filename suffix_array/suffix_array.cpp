@@ -69,4 +69,20 @@ struct suffix_array{
 
     return make_pair(left, right);
   }
+
+  vector< int > build_lcp() {
+    vector< int > lcp(L, 0);
+    int k = 0;
+    for(int i = 0; i < L; ++i) {
+      if( rank_of[i] == L - 1 ) {
+        k = 0;
+        continue;
+      }
+      int j = at_rank[ rank_of[i] + 1];
+      while( i + k < L && j + k < L && str[i + k] == str[j + k]) ++k;
+      lcp[ rank_of[i] ] = k;
+      if( k > 0 ) --k;
+    }
+    return lcp;
+  }
 };

@@ -78,3 +78,25 @@ template<typename T, typename U> struct seg_tree_lazy {
     return res_left * res_right;
   }
 };
+
+// Examplo -> update = somar uma constante no range
+// Query   -> max
+struct Node {
+  ll val, int length;
+  Node( ll val = 0, int length = 0) : val(val), length(length) {}
+  Node operator*( const Node& rhs ) const {
+    return Node( max(val, rhs.val), length + rhs.length ); 
+  }
+};
+
+struct Op {
+  ll inc;
+  Op( ll inc = 0 ) : inc(inc) {}
+  Node operator*( const Node& rhs ) const {
+    return Node( rhs.val + inc, rhs.length );
+  }
+  Op operator+( const Op& rhs ) const {
+    return Op( inc + rhs.inc );
+  }
+};
+

@@ -44,3 +44,11 @@ template<typename T> struct heavy_light {
     return __query(u, r, true) * st.query(index[r], index[r]) * __query(v, r, false);
   }
 };
+
+struct T {
+  ll x;
+  T( ll x = LLONG_MIN ) : x(x) {}
+  T operator*(const T& rhs) const {
+    return T( max(x, rhs.x) );
+  }
+};
